@@ -1,0 +1,40 @@
+{
+    "windows": [
+        {
+            "panes": [
+                {
+                    "path": "/home/wilhelm"
+                },
+                {
+                    "path": "/home/wilhelm",
+                    "split_direction": "down",
+                    "program": "echo 'test'"
+                }
+            ]
+        },
+        {
+            "panes": [
+                {
+                    "path": "/home/wilhelm"
+                },
+                {
+                    "path": "/home/wilhelm",
+                    "split_direction": "down",
+                    "program": "echo 'test'"
+                }
+            ]
+        },
+        {
+            "panes": [
+                {
+                    "path": "/home/wilhelm"
+                },
+                {
+                    "path": "/home/wilhelm",
+                    "split_direction": "down",
+                    "program": "echo 'test'"
+                }
+            ]
+        }
+    ]
+}
