@@ -1,6 +1,7 @@
 {
     "windows": [
         {
+            "name": "window 1",
             "panes": [
                 {
                     "path": "/home/wilhelm"
