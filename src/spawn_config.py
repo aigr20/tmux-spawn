@@ -1,10 +1,13 @@
-from typing import Optional, TypedDict
+from typing import Literal, Optional, TypedDict
 
-class _Pane(TypedDict):
+class PaneConfig(TypedDict):
     path: str
     program: Optional[str]
-    split_direction: Optional[str]
+    split_direction: Optional[Literal["vertical"]|Literal["horizontal"]]
+
+class WindowConfig(TypedDict):
+    panes: list[PaneConfig]
 
 class SpawnConfig(TypedDict):
-    windows: list[_Pane]
+    windows: list[WindowConfig]
 
