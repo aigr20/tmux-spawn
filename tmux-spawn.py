@@ -7,7 +7,7 @@ from libtmux.server import Server
 from libtmux.session import Session
 from libtmux.window import Window
 
-from src.spawn_config import PaneConfig, SpawnConfig, WindowConfig
+from types.spawn_config import PaneConfig, SpawnConfig, WindowConfig
 
 
 def create_windows(session: Session, window_config: list[WindowConfig]) -> list[Window]:
