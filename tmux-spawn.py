@@ -33,7 +33,10 @@ def create_windows(session: Session, window_config: list[WindowConfig]) -> list[
 def create_panes(window: Window, config: list[PaneConfig]) -> list[Pane]:
     panes: list[Pane] = []
     for pane in config:
-        vertical = pane["split_direction"] == "vertical"
+        try:
+            vertical = pane["split_direction"] == "vertical"
+        except KeyError:
+            vertical = True
         new_pane = window.split_window(start_directory=pane["path"], vertical=vertical)
         if pane["program"]:
             new_pane.send_keys(pane["program"], enter=True)
