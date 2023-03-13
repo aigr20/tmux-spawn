@@ -59,6 +59,7 @@ def main(session_name: str, config_file: str) -> None:
         print(f"No configuration file at {config_file}")
         sys.exit(1)
     config: SpawnConfig = json.load(config_f)
+    config_f.close()
 
     windows = create_windows(session, config[session_name])
     for i, window_config in enumerate(config[session_name]):
