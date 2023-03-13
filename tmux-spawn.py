@@ -38,9 +38,12 @@ def create_panes(window: Window, config: list[PaneConfig]) -> list[Pane]:
         except KeyError:
             vertical = True
         new_pane = window.split_window(start_directory=pane["path"], vertical=vertical)
-        if pane["program"]:
-            new_pane.send_keys(pane["program"], enter=True)
         panes.append(new_pane)
+        try:
+            if pane["program"]:
+                new_pane.send_keys(pane["program"], enter=True)
+        except KeyError:
+            continue
 
     return panes
 
