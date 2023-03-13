@@ -45,7 +45,7 @@ def create_panes(window: Window, config: list[PaneConfig]) -> list[Pane]:
 def get_arguments() -> CLIArguments:
     parser = ArgumentParser()
     parser.add_argument("session_name", type=str)
-    parser.add_argument("--config_file", type=str)
+    parser.add_argument("-c", "--config", type=str, help="Use a custom config file")
     args = parser.parse_args(namespace=CLIArguments())
     return args
 
@@ -68,4 +68,4 @@ def main(session_name: str, config_file: str) -> None:
 
 if __name__ == "__main__":
     args = get_arguments()
-    main(args.session_name, args.config_file)
+    main(args.session_name, args.config)

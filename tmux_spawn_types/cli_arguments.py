@@ -5,4 +5,4 @@ class CLIArguments(Namespace):
     session_name: str
 
     def __init__(self) -> None:
-        self.config_file = "sample-config.json"
+        self.config = "sample-config.json"
