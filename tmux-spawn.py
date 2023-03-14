@@ -67,7 +67,12 @@ def main(session_name: str, config_file: str) -> None:
     config: SpawnConfig = json.load(config_f)
     config_f.close()
 
-    windows = create_windows(session, config[session_name])
+    windows: list[Window] = []
+    try:
+        windows = create_windows(session, config[session_name])
+    except KeyError:
+        print(f"No window configuration with key {session_name} found in {config_file}")
+        sys.exit(1)
     for i, window_config in enumerate(config[session_name]):
         create_panes(windows[i], window_config["panes"][1:])
 
