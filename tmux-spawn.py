@@ -52,31 +52,44 @@ def get_arguments() -> CLIArguments:
     parser = ArgumentParser()
     parser.add_argument("session_name", type=str)
     parser.add_argument("-c", "--config", type=str, help="Use a custom config file")
+    parser.add_argument(
+        "-r",
+        "--replace",
+        action="store_true",
+        help="Close the current window after opening the session",
+    )
     args = parser.parse_args(namespace=CLIArguments())
     return args
 
 
-def main(session_name: str, config_file: str) -> None:
+def main(arguments: CLIArguments) -> None:
     server = Server()
     session: Session = server.sessions[0]
     try:
-        config_f = Path(config_file).open(encoding="utf-8")
+        config_f = Path(arguments.config).open(encoding="utf-8")
     except FileNotFoundError:
-        print(f"No configuration file at {config_file}")
+        print(f"No configuration file at {arguments.config}")
         sys.exit(1)
     config: SpawnConfig = json.load(config_f)
     config_f.close()
 
+    initial_window = session.window_active
+
     windows: list[Window] = []
     try:
-        windows = create_windows(session, config[session_name])
+        windows = create_windows(session, config[arguments.session_name])
     except KeyError:
-        print(f"No window configuration with key {session_name} found in {config_file}")
+        print(
+            f"No window configuration with key {arguments.session_name} found in {arguments.config}"
+        )
         sys.exit(1)
-    for i, window_config in enumerate(config[session_name]):
+    for i, window_config in enumerate(config[arguments.session_name]):
         create_panes(windows[i], window_config["panes"][1:])
+
+    if arguments.replace and initial_window is not None:
+        session.kill_window(initial_window)
 
 
 if __name__ == "__main__":
     args = get_arguments()
-    main(args.session_name, args.config)
+    main(args)
