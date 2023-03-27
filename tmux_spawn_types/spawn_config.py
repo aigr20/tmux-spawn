@@ -12,4 +12,9 @@ class WindowConfig(TypedDict):
     panes: list[PaneConfig]
 
 
-SpawnConfig = dict[str, list[WindowConfig]]
+class InstanceConfig(TypedDict):
+    windows: list[WindowConfig]
+    replace: Optional[bool]
+
+
+SpawnConfig = dict[str, InstanceConfig]

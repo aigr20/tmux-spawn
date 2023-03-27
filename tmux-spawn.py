@@ -70,23 +70,28 @@ def main(arguments: CLIArguments) -> None:
     except FileNotFoundError:
         print(f"No configuration file at {arguments.config}")
         sys.exit(1)
+
     config: SpawnConfig = json.load(config_f)
     config_f.close()
 
     initial_window = session.window_active
+    spawn_instance = None
 
-    windows: list[Window] = []
     try:
-        windows = create_windows(session, config[arguments.session_name])
+        spawn_instance = config[arguments.session_name]
     except KeyError:
         print(
             f"No window configuration with key {arguments.session_name} found in {arguments.config}"
         )
         sys.exit(1)
-    for i, window_config in enumerate(config[arguments.session_name]):
+
+    windows = create_windows(session, spawn_instance["windows"])
+    for i, window_config in enumerate(spawn_instance["windows"]):
         create_panes(windows[i], window_config["panes"][1:])
 
-    if arguments.replace and initial_window is not None:
+    if (arguments.replace and initial_window is not None) or spawn_instance.get(
+        "replace"
+    ):
         session.kill_window(initial_window)
 
 

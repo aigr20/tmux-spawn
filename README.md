@@ -29,19 +29,22 @@ The configuration file can look as follows:
 ```json5
 {
     // The name that identifies the windows to spawn
-    "session_name": [
-        {
-            "name": "window name", // Optional name to set for the window
-            // A list of panes, minimum 1
-            "panes": [
-                {
-                    "path": "/a/directory", // Where to open the pane
-                    "split_direction": "vertical", // Split vertically or horizontally
-                    "program": // Optional program to run in the pane after opening
-                }
-            ]
-        }
-    ]
+    "session_name": {
+        "windows": [
+            {
+                "name": "window name", // Optional name to set for the window
+                // A list of panes, minimum 1
+                "panes": [
+                    {
+                        "path": "/a/directory", // Where to open the pane
+                        "split_direction": "vertical", // Split vertically or horizontally
+                        "program": // Optional program to run in the pane after opening
+                    }
+                ]
+            }
+        ],
+        "replace": true // Optionally set to always replace (-r)
+    }
 }
 ```
 
