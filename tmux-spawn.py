@@ -71,8 +71,13 @@ def main(arguments: CLIArguments) -> None:
         print(f"No configuration file at {arguments.config}")
         sys.exit(1)
 
-    config: SpawnConfig = json.load(config_f)
-    config_f.close()
+    try:
+        config: SpawnConfig = json.load(config_f)
+        config_f.close()
+    except json.decoder.JSONDecodeError:
+        print("Malformed configuration")
+        print(f"Configuration file location: {arguments.config}")
+        sys.exit(1)
 
     initial_window = session.window_active
     spawn_instance = None
